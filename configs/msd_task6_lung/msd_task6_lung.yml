@@ -15,13 +15,13 @@ train_dataset:
     #   degrees: 90
     # - type: RandomFlip3D
   mode: train
-  num_classes: 1
+  num_classes: 2
 
 val_dataset:
   type: LungCoronavirus
   dataset_root: Task06_Lung/Task06_Lung_phase0
   result_dir: Task06_Lung/Task06_Lung_phase1
-  num_classes: 1
+  num_classes: 2
   transforms: []
   mode: val
   dataset_json_path: "data/Task06_Lung/Task06_Lung_raw/dataset.json"

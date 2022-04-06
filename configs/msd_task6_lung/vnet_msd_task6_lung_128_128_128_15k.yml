@@ -4,5 +4,5 @@ model:
   type: VNet
   elu: False
   in_channels: 1
-  num_classes: 1
+  num_classes: 2
   pretrained: null
