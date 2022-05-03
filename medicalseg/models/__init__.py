@@ -15,4 +15,7 @@
 from .losses import *
 from .vnet import VNet
 from .vnet_deepsup import VNetDeepSup
+
 from .unet import UNet
+from .unet3d import UNet3D
+from .unet_attention import UNetAtt
