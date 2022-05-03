@@ -180,7 +180,7 @@ class UNet(nn.Layer):
         self.padded = False
 
         self.encb1 = EncoderBlock(
-            "encoder1", in_channels, base_n_kernel * 2**0, downsample=False, norm=False
+            "encoder1", in_channels, base_n_kernel * 2**0, downsample=False
         )  # 8, orig
         self.encb2 = EncoderBlock("encoder2", kernel_number=base_n_kernel * 2**1)  # 16, orig/2
         self.encb3 = EncoderBlock("encoder3", kernel_number=base_n_kernel * 2**2)  # 32, orig/4
@@ -247,7 +247,6 @@ if __name__ == "__main__":
 
     input = paddle.rand((2, 1, size, size, size))
     print("input", input.shape)
-
 
     output = unet(input)
     print("output", output[0].shape)
