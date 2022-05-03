@@ -1,24 +1,27 @@
 import os.path as osp
 
+
 def flatten_cfg(cfg):
     return {
-        "model": cfg.dic['model']['type'],
+        "model": cfg.dic["model"]["type"],
+        "comment": cfg.dic.get("comment", ""),
         "batch_size": cfg.batch_size,
         "iters": cfg.iters,
-        "train_dataset_root": osp.join(cfg.dic['data_root'], cfg.dic['train_dataset']['dataset_root']),
-        "val_dataset_root": osp.join(cfg.dic['data_root'], cfg.dic['val_dataset']['dataset_root']),
-        "num_classes": cfg.dic['model']['num_classes'],
-        "in_channels": cfg.dic['model']['in_channels'],
-        "lr": cfg.dic['lr_scheduler']['learning_rate'],
-        "end_lr": cfg.dic['lr_scheduler']['end_lr'],
-        "lr_decay_steps": cfg.dic['lr_scheduler']['decay_steps'],
-        "lr_power": cfg.dic['lr_scheduler']['power'],
-        "comment": cfg.dic.get("comment", ""),
-        **cfg.dic['vdl_hyper_param']
+        "train_dataset_root": osp.join(
+            cfg.dic["data_root"], cfg.dic["train_dataset"]["dataset_root"]
+        ),
+        "val_dataset_root": osp.join(cfg.dic["data_root"], cfg.dic["val_dataset"]["dataset_root"]),
+        "num_classes": cfg.dic["model"]["num_classes"],
+        "in_channels": cfg.dic["model"]["in_channels"],
+        "lr": cfg.dic["lr_scheduler"]["learning_rate"],
+        "end_lr": cfg.dic["lr_scheduler"]["end_lr"],
+        "lr_decay_steps": cfg.dic["lr_scheduler"]["decay_steps"],
+        "lr_power": cfg.dic["lr_scheduler"]["power"],
+        **cfg.dic["vdl_hyper_param"],
     }
 
 
-'''
+"""
 {
     "data_root": "data/",
     "batch_size": 1,
@@ -54,4 +57,4 @@ def flatten_cfg(cfg):
     },
     "model": {"type": "UNet", "in_channels": 1, "num_classes": 3},
 }
-'''
+"""

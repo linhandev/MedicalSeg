@@ -37,6 +37,7 @@ class EncoderBlock(nn.Layer):
         downsample=True,
         norm=True,
         kernel_size=3,
+        dropout=0.6,
     ):
         super(EncoderBlock, self).__init__(name_scope=name_scope)
         self.norm = norm
@@ -44,7 +45,7 @@ class EncoderBlock(nn.Layer):
             in_channels = kernel_number // 2
 
         self.lrelu = nn.LeakyReLU()
-        self.dropout = nn.Dropout3D(p=0.6)
+        self.dropout = nn.Dropout3D(p=dropout)
 
         if norm:
             self.norm1 = nn.InstanceNorm3D(kernel_number)
@@ -170,7 +171,7 @@ class UNet(nn.Layer):
     Implementations based on the Unet3D paper: https://arxiv.org/abs/1606.06650
     """
 
-    def __init__(self, in_channels, num_classes, pretrained=None, base_n_kernel=8):
+    def __init__(self, in_channels, num_classes, pretrained=None, base_n_kernel=8, dropout=0.3):
         super(UNet, self).__init__()
         self.num_classes = num_classes
         self.best_loss = 1000000
@@ -180,14 +181,14 @@ class UNet(nn.Layer):
         self.padded = False
 
         self.encb1 = EncoderBlock(
-            "encoder1", in_channels, base_n_kernel * 2**0, downsample=False
+            "encoder1", in_channels, base_n_kernel * 2**0, downsample=False, norm=False, dropout=dropout
         )  # 8, orig
-        self.encb2 = EncoderBlock("encoder2", kernel_number=base_n_kernel * 2**1)  # 16, orig/2
-        self.encb3 = EncoderBlock("encoder3", kernel_number=base_n_kernel * 2**2)  # 32, orig/4
-        self.encb4 = EncoderBlock("encoder4", kernel_number=base_n_kernel * 2**3)  # 64, orig/8
+        self.encb2 = EncoderBlock("encoder2", kernel_number=base_n_kernel * 2**1, dropout=dropout)  # 16, orig/2
+        self.encb3 = EncoderBlock("encoder3", kernel_number=base_n_kernel * 2**2, dropout=dropout)  # 32, orig/4
+        self.encb4 = EncoderBlock("encoder4", kernel_number=base_n_kernel * 2**3, dropout=dropout)  # 64, orig/8
 
         self.encb5 = EncoderBlock(
-            "encoder5", in_channels=base_n_kernel * 2**3, kernel_number=base_n_kernel * 2**4
+            "encoder5", in_channels=base_n_kernel * 2**3, kernel_number=base_n_kernel * 2**4, dropout=dropout
         )  # 128, orig/16
 
         self.decb4 = DecoderBlock("decoder4", base_n_kernel * 2**3, num_classes)
