@@ -29,6 +29,8 @@ for cmd in cmds:
     
 input("continue? ")
 
+os.system(pre_run)
+
 for cmd in cmds:
     print("=================================================")
     print("running\n", cmd)
