@@ -156,7 +156,7 @@ class DecoderBlock(nn.Layer):
         out = self.norm2(out)
         out = self.lrelu(out)
 
-        out = self.conv3(shortcut)
+        out = self.conv3(out)
         out = self.norm3(out)
         out = self.lrelu(out)
         shortcut = out
@@ -223,8 +223,8 @@ class UNet(nn.Layer):
 
         out = self.decconv(out)
 
-        # ds4_up = self.upsample(ds4)
-        # ds3 += ds4_up
+        ds4_up = self.upsample(ds4)
+        ds3 += ds4_up
         ds3_up = self.upsample(ds3)
         ds2 += ds3_up
         ds2_up = self.upsample(ds2)
