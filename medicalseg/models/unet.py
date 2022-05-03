@@ -47,9 +47,9 @@ class EncoderBlock(nn.Layer):
         self.dropout = nn.Dropout3D(p=0.6)
 
         if norm:
-            self.norm1 = nn.BatchNorm3D(kernel_number)
-            self.norm2 = nn.BatchNorm3D(kernel_number)
-        self.norm3 = nn.BatchNorm3D(kernel_number)
+            self.norm1 = nn.InstanceNorm3D(kernel_number)
+            self.norm2 = nn.InstanceNorm3D(kernel_number)
+            self.norm3 = nn.InstanceNorm3D(kernel_number)
 
         self.conv1 = nn.Conv3D(
             in_channels=in_channels,
@@ -89,7 +89,8 @@ class EncoderBlock(nn.Layer):
         out = self.lrelu(out)
         out = self.conv3(out)
         out += residual
-        out = self.norm3(out)
+        if self.norm:
+            out = self.norm3(out)
         out = self.lrelu(out)
         return out
 
@@ -109,7 +110,7 @@ class DecoderBlock(nn.Layer):
             padding="SAME",
             bias_attr=False,
         )
-        self.norm1 = nn.BatchNorm3D(kernel_number * 2)
+        self.norm1 = nn.InstanceNorm3D(kernel_number * 2)
 
         self.conv2 = nn.Conv3D(
             in_channels=kernel_number * 2,
@@ -119,7 +120,7 @@ class DecoderBlock(nn.Layer):
             padding="SAME",
             bias_attr=False,
         )
-        self.norm2 = nn.BatchNorm3D(kernel_number)
+        self.norm2 = nn.InstanceNorm3D(kernel_number)
 
         self.conv3 = nn.Conv3D(
             in_channels=kernel_number,
@@ -139,7 +140,7 @@ class DecoderBlock(nn.Layer):
             bias_attr=False,
         )
 
-        self.norm3 = nn.BatchNorm3D(kernel_number)
+        self.norm3 = nn.InstanceNorm3D(kernel_number)
 
     def forward(self, x, skip):
         out = self.upsample(x)
@@ -211,6 +212,7 @@ class UNet(nn.Layer):
         enc2 = self.encb2(enc1)
         enc3 = self.encb3(enc2)
         enc4 = self.encb4(enc3)
+
         enc5 = self.encb5(enc4)
 
         out, ds4 = self.decb4(enc5, enc4)
@@ -225,7 +227,7 @@ class UNet(nn.Layer):
         ds3_up = self.upsample(ds3)
         ds2 += ds3_up
         ds2_up = self.upsample(ds2)
-        out = out + ds2_up
+        out += ds2_up
 
         if self.padded:
             out = out[:, :, 1:, 1:, 1:]
