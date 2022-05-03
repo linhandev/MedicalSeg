@@ -19,7 +19,6 @@ import numpy as np
 from collections import deque
 
 import paddle
-import paddle.nn.functional as F
 
 from medicalseg.utils import (TimeAverager, calculate_eta, resume, logger,
                               worker_init_fn, train_profiler, op_flops_run,
@@ -42,7 +41,8 @@ def train(model,
           losses=None,
           keep_checkpoint_max=5,
           profiler_options=None,
-          to_static_training=False):
+          to_static_training=False,
+          cfg=None):
     """
     Launch training.
 
@@ -64,6 +64,7 @@ def train(model,
         keep_checkpoint_max (int, optional): Maximum number of checkpoints to save. Default: 5.
         profiler_options (str, optional): The option of train profiler.
         to_static_training (bool, optional): Whether to use @to_static for training.
+        cfg (medicalseg.cvlibs.config, optional): Full configuration for saving config with vdl log.
     """
     model.train()
     nranks = paddle.distributed.ParallelEnv().nranks
@@ -96,9 +97,14 @@ def train(model,
 
     if use_vdl:
         from visualdl import LogWriter
+        from medicalseg.utils.vdl import flatten_cfg
+
         log_writer = LogWriter(save_dir)
+        print(cfg.dic)
+        log_writer.add_hparams(flatten_cfg(cfg), metrics_list=["Evaluate/Dice"])
     else:
         log_writer = None
+    
 
     if to_static_training:
         model = paddle.jit.to_static(model)

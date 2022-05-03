@@ -1,6 +1,6 @@
 _base_: '../_base_/global_configs.yml'
 
-batch_size: 32
+batch_size: 1 # 32
 iters: 400
 
 train_dataset:
@@ -11,9 +11,6 @@ train_dataset:
     - type: RandomResizedCrop3D
       size: 64
       scale: [0.8, 1.2]
-    # - type: RandomRotation3D
-    #   degrees: 90
-    # - type: RandomFlip3D
   mode: train
   num_classes: 3
 

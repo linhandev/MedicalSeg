@@ -111,6 +111,13 @@ def parse_args():
         help='The option of train profiler. If profiler_options is not None, the train ' \
             'profiler is enabled. Refer to the medseg/utils/train_profiler.py for details.'
     )
+    parser.add_argument(
+        '--comment',
+        type=str,
+        default=None,
+        help='A string to be saved in the hyper parameter section of visualdl. You can put down some descriptions about this run.'
+    )
+    
 
     return parser.parse_args()
 
@@ -186,7 +193,8 @@ def main(args):
         losses=losses,
         keep_checkpoint_max=args.keep_checkpoint_max,
         profiler_options=args.profiler_options,
-        to_static_training=cfg.to_static_training)
+        to_static_training=cfg.to_static_training,
+        cfg=cfg)
 
 
 if __name__ == '__main__':
