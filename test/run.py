@@ -31,5 +31,5 @@ for cmd in cmds:
     print("=================================================")
     print("running\n", cmd)
     os.system(cmd)
-    print("=================================================")
     time.sleep(1)
+    print("\n" * 10)
