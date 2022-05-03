@@ -25,7 +25,7 @@ import paddle
 import paddle.nn as nn
 import paddle.nn.functional as F
 
-from paddleseg3d.cvlibs import manager
+from medicalseg.cvlibs import manager
 
 
 @manager.MODELS.add_component
@@ -34,11 +34,11 @@ class UNet3D(nn.Layer):
     Implementations based on the Unet3D paper: https://arxiv.org/abs/1606.06650
     """
 
-    def __init__(self, in_channels, n_classes, base_n_filter=8):
+    def __init__(self, in_channels, num_classes, base_n_filter=8):
         super(UNet3D, self).__init__()
         self.best_loss = 1000000
         self.in_channels = in_channels
-        self.n_classes = n_classes
+        self.num_classes = num_classes
         self.base_n_filter = base_n_filter
 
         self.lrelu = nn.LeakyReLU()
@@ -159,7 +159,7 @@ class UNet3D(nn.Layer):
                                                        self.base_n_filter * 2)
         self.conv3d_l4 = nn.Conv3D(
             self.base_n_filter * 2,
-            self.n_classes,
+            self.num_classes,
             kernel_size=1,
             stride=1,
             padding=0,
@@ -167,14 +167,14 @@ class UNet3D(nn.Layer):
 
         self.ds2_1x1_conv3d = nn.Conv3D(
             self.base_n_filter * 8,
-            self.n_classes,
+            self.num_classes,
             kernel_size=1,
             stride=1,
             padding=0,
             bias_attr=False)
         self.ds3_1x1_conv3d = nn.Conv3D(
             self.base_n_filter * 4,
-            self.n_classes,
+            self.num_classes,
             kernel_size=1,
             stride=1,
             padding=0,
@@ -325,22 +325,20 @@ class UNet3D(nn.Layer):
 
         return out
 
-    def test(self):
-        import numpy as np
-        np.random.seed(1)
-        a = np.random.rand(1, self.in_channels, 32, 32, 32)
-        input_tensor = paddle.to_tensor(a, dtype='float32')
-
-        ideal_out = paddle.rand((1, self.n_classes, 32, 32, 32))
-        out = self.forward(input_tensor)
-        print("out", out.mean(), input_tensor.mean())
-
-        assert ideal_out.shape == out.shape
-        paddle.summary(self, (1, self.in_channels, 32, 32, 32))
-
-        print("Vnet test is complete")
 
 
 if __name__ == "__main__":
-    m = UNet3D(in_channels=1, n_classes=2)
-    m.test()
+    size = 64
+    num_classes = 3
+    input = paddle.static.InputSpec([None, 1, size, size, size], "float32", "x")
+    label = paddle.static.InputSpec([None, num_classes, size, size, size], "int64", "label")
+
+    unet_3d = UNet3D(in_channels=1, num_classes=3)
+
+    paddle.Model(unet_3d, input, label).summary()
+
+    input = paddle.rand((2, 1, size, size, size))
+    print("input", input.shape)
+
+    output = unet_3d(input)
+    print("output", output[0].shape)

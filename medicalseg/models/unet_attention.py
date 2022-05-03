@@ -303,12 +303,12 @@ if __name__ == "__main__":
     input = paddle.static.InputSpec([None, 1, size, size, size], "float32", "x")
     label = paddle.static.InputSpec([None, num_classes, size, size, size], "int64", "label")
 
-    unet = UNetAtt(in_channels=1, num_classes=3)
+    unet_att = UNetAtt(in_channels=1, num_classes=3)
 
-    # paddle.Model(unet, input, label).summary()
+    paddle.Model(unet_att, input, label).summary()
 
     input = paddle.rand((2, 1, size, size, size))
     print("input", input.shape)
 
-    output = unet(input)
+    output = unet_att(input)
     print("output", output[0].shape)
