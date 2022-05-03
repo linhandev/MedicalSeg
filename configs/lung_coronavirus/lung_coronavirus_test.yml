@@ -1,7 +1,7 @@
 _base_: '../_base_/global_configs.yml'
 
 batch_size: 32
-iters: 10
+iters: 500
 
 train_dataset:
   type: LungCoronavirus
