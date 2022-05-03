@@ -8,3 +8,4 @@ model:
 comment: "Unet full, instance norm"
 vdl_hyper_param:
   dropout: 0.6
+  norm: "instance norm"
