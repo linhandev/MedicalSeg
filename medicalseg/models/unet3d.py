@@ -323,7 +323,7 @@ class UNet3D(nn.Layer):
 
         out = out_pred + ds1_ds2_sum_upscale_ds3_sum_upscale
 
-        return out
+        return [out]
 
 
 
