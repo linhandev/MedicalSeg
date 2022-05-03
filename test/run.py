@@ -1,6 +1,8 @@
 import os
 import time
 
+pre_run = "rm -rf saved_model/"
+
 common = """
 # set your GPU ID here
 export CUDA_VISIBLE_DEVICES=0
