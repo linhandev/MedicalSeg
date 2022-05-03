@@ -138,7 +138,7 @@ class DecoderBlock(nn.Layer):
             kernel_size=1,
             stride=1,
             padding="SAME",
-            bias_attr=False,
+            # bias_attr=False,
         )
 
         self.norm3 = nn.InstanceNorm3D(kernel_number)
@@ -155,11 +155,11 @@ class DecoderBlock(nn.Layer):
         out = self.conv2(out)
         out = self.norm2(out)
         out = self.lrelu(out)
-        shortcut = out
 
         out = self.conv3(shortcut)
         out = self.norm3(out)
         out = self.lrelu(out)
+        shortcut = out
 
         shortcut = self.shortcut_conv(shortcut)
         return out, shortcut
@@ -171,7 +171,7 @@ class UNet(nn.Layer):
     Implementations based on the Unet3D paper: https://arxiv.org/abs/1606.06650
     """
 
-    def __init__(self, in_channels, num_classes, pretrained=None, base_n_kernel=8, dropout=0.3):
+    def __init__(self, in_channels, num_classes, pretrained=None, base_n_kernel=8, dropout=0.6):
         super(UNet, self).__init__()
         self.num_classes = num_classes
         self.best_loss = 1000000
