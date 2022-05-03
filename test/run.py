@@ -20,7 +20,8 @@ python3 train.py --config configs/${yml}.yml \
 config_names = ["unet", "unet_att", "unet3d"]
 cmds = [f"config_name={c}\n" + common for c in config_names]
 
-print(cmds)
+for cmd in cmds:
+    print(cmd)
 input("continue? ")
 
 for cmd in cmds:
