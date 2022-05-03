@@ -5,7 +5,7 @@ model:
   in_channels: 1
   num_classes: 3
 
-comment: "Unet full, instance norm, three norms at first encoder"
+comment: "Unet full, dropout 0.3"
 vdl_hyper_param:
-  dropout: 0.6
+  dropout: 0.3
   norm: "instance norm"
