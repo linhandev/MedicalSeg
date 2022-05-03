@@ -5,6 +5,6 @@ model:
   in_channels: 1
   num_classes: 3
 
-comment: "Unet full"
+comment: "Unet full, instance norm"
 vdl_hyper_param:
   dropout: 0.6
