@@ -1,6 +1,6 @@
 _base_: '../_base_/global_configs.yml'
 
-batch_size: 1 # 32
+batch_size: 32
 iters: 10
 
 train_dataset:
