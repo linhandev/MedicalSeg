@@ -14,6 +14,7 @@ def flatten_cfg(cfg):
         "lr_decay_steps": cfg.dic['lr_scheduler']['decay_steps'],
         "lr_power": cfg.dic['lr_scheduler']['power'],
         "comment": cfg.dic.get("comment", ""),
+        **cfg.dic['vdl_hyper_param']
     }
 
 

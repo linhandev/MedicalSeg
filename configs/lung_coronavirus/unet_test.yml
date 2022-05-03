@@ -6,3 +6,5 @@ model:
   num_classes: 3
 
 comment: "test comment"
+vdl_hyper_param:
+  dropout: 0.6
