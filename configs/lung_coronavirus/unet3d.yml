@@ -1,0 +1,10 @@
+_base_: 'lung_coronavirus_test.yml'
+
+model:
+  type: UNet3D
+  in_channels: 1
+  num_classes: 3
+
+comment: "Unet 3d, old unet implementation"
+vdl_hyper_param:
+  dropout: 0.6
