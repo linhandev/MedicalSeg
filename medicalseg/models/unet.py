@@ -49,7 +49,7 @@ class EncoderBlock(nn.Layer):
         if norm:
             self.norm1 = nn.InstanceNorm3D(kernel_number)
             self.norm2 = nn.InstanceNorm3D(kernel_number)
-            self.norm3 = nn.InstanceNorm3D(kernel_number)
+        self.norm3 = nn.InstanceNorm3D(kernel_number)
 
         self.conv1 = nn.Conv3D(
             in_channels=in_channels,
@@ -89,8 +89,8 @@ class EncoderBlock(nn.Layer):
         out = self.lrelu(out)
         out = self.conv3(out)
         out += residual
-        if self.norm:
-            out = self.norm3(out)
+        # if self.norm:
+        out = self.norm3(out)
         out = self.lrelu(out)
         return out
 
