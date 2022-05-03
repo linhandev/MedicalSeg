@@ -1,4 +1,5 @@
 import os
+import time
 
 common = """
 # set your GPU ID here
@@ -22,6 +23,8 @@ cmds = [f"config_name={c}\n" + common for c in config_names]
 
 for cmd in cmds:
     print(cmd)
+    print("=================================================")
+    
 input("continue? ")
 
 for cmd in cmds:
@@ -29,3 +32,4 @@ for cmd in cmds:
     print("running\n", cmd)
     os.system(cmd)
     print("=================================================")
+    time.sleep(1)
