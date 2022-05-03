@@ -5,7 +5,7 @@ model:
   in_channels: 1
   num_classes: 3
 
-comment: "Unet full, late shortcut with bias, first encode norm"
+comment: "Unet full, no ds4, late shortcut with bias, first encode norm"
 vdl_hyper_param:
   dropout: 0.3
   norm: "instance norm"
