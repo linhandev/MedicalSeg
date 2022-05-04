@@ -137,7 +137,7 @@ class DecoderBlock(nn.Layer):
             kernel_size=1,
             stride=1,
             padding="SAME",
-            # bias_attr=False,
+            bias_attr=False,
         )
 
         self.norm3 = nn.InstanceNorm3D(kernel_number)
