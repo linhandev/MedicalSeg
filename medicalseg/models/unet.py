@@ -222,12 +222,12 @@ class UNet(nn.Layer):
 
         out = self.decconv(out)
 
-        ds4_up = self.upsample(ds4)
-        ds3 += ds4_up
-        ds3_up = self.upsample(ds3)
-        ds2 += ds3_up
-        ds2_up = self.upsample(ds2)
-        out += ds2_up
+        # ds4_up = self.upsample(ds4)
+        # ds3 += ds4_up
+        # ds3_up = self.upsample(ds3)
+        # ds2 += ds3_up
+        # ds2_up = self.upsample(ds2)
+        # out += ds2_up
 
         if self.padded:
             out = out[:, :, 1:, 1:, 1:]

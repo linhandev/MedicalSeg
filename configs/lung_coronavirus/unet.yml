@@ -20,7 +20,7 @@ model:
   in_channels: 1
   num_classes: 3
 
-comment: "Unet 128 baseline, batchnorm"
+comment: "Unet 128 baseline, no deep sup"
 vdl_hyper_param:
   dropout: 0.2
-  norm: "batch norm"
+  norm: "instance norm"
