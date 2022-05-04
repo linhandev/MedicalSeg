@@ -90,7 +90,6 @@ class EncoderBlock(nn.Layer):
         out = self.lrelu(out)
         out = self.conv3(out)
         out += residual
-        # if self.norm:
         out = self.norm3(out)
         out = self.lrelu(out)
         return out
