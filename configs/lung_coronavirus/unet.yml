@@ -20,7 +20,14 @@ model:
   in_channels: 1
   num_classes: 3
 
-comment: "Unet 128 baseline, no deep sup"
+comment: "Unet 128 baseline, no skip in encoder"
 vdl_hyper_param:
   dropout: 0.2
   norm: "instance norm"
+
+# no skip
+# leakyrelu
+# dropout 0.7
+# dropout 0
+# tanh
+# 

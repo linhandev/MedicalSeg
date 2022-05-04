@@ -44,13 +44,13 @@ class EncoderBlock(nn.Layer):
         if in_channels is None:
             in_channels = kernel_number // 2
 
-        self.lrelu = nn. PReLU()
+        self.lrelu = nn.PReLU()
         self.dropout = nn.Dropout3D(p=dropout)
 
         if norm:
-            self.norm1 = nn.BatchNorm3D(kernel_number)
-            self.norm2 = nn.BatchNorm3D(kernel_number)
-        self.norm3 = nn.BatchNorm3D(kernel_number)
+            self.norm1 = nn.InstanceNorm3D(kernel_number)
+            self.norm2 = nn.InstanceNorm3D(kernel_number)
+        self.norm3 = nn.InstanceNorm3D(kernel_number)
 
         self.conv1 = nn.Conv3D(
             in_channels=in_channels,
@@ -89,7 +89,7 @@ class EncoderBlock(nn.Layer):
             out = self.norm2(out)
         out = self.lrelu(out)
         out = self.conv3(out)
-        out += residual
+        # out += residual
         out = self.norm3(out)
         out = self.lrelu(out)
         return out
@@ -98,8 +98,7 @@ class EncoderBlock(nn.Layer):
 class DecoderBlock(nn.Layer):
     def __init__(self, name_scope, kernel_number, num_classes, kernel_size=3, stride=1):
         super(DecoderBlock, self).__init__(name_scope=name_scope)
-        self.dropout = nn.Dropout3D(p=0.6)
-        self.lrelu = nn. PReLU()
+        self.lrelu = nn.PReLU()
 
         self.upsample = nn.Upsample(scale_factor=2, mode="trilinear", data_format="NCDHW")
         self.conv1 = nn.Conv3D(
@@ -110,7 +109,7 @@ class DecoderBlock(nn.Layer):
             padding="SAME",
             bias_attr=False,
         )
-        self.norm1 = nn.BatchNorm3D(kernel_number * 2)
+        self.norm1 = nn.InstanceNorm3D(kernel_number * 2)
 
         self.conv2 = nn.Conv3D(
             in_channels=kernel_number * 2,
@@ -120,7 +119,7 @@ class DecoderBlock(nn.Layer):
             padding="SAME",
             bias_attr=False,
         )
-        self.norm2 = nn.BatchNorm3D(kernel_number)
+        self.norm2 = nn.InstanceNorm3D(kernel_number)
 
         self.conv3 = nn.Conv3D(
             in_channels=kernel_number,
@@ -140,7 +139,7 @@ class DecoderBlock(nn.Layer):
             # bias_attr=False,
         )
 
-        self.norm3 = nn.BatchNorm3D(kernel_number)
+        self.norm3 = nn.InstanceNorm3D(kernel_number)
 
     def forward(self, x, skip):
         out = self.upsample(x)
@@ -222,12 +221,12 @@ class UNet(nn.Layer):
 
         out = self.decconv(out)
 
-        # ds4_up = self.upsample(ds4)
-        # ds3 += ds4_up
-        # ds3_up = self.upsample(ds3)
-        # ds2 += ds3_up
-        # ds2_up = self.upsample(ds2)
-        # out += ds2_up
+        ds4_up = self.upsample(ds4)
+        ds3 += ds4_up
+        ds3_up = self.upsample(ds3)
+        ds2 += ds3_up
+        ds2_up = self.upsample(ds2)
+        out += ds2_up
 
         if self.padded:
             out = out[:, :, 1:, 1:, 1:]
