@@ -12,7 +12,7 @@ lr_scheduler:
   type: PolynomialDecay
   decay_steps: 3000
   learning_rate: 0.01
-  end_lr: 0.0001
+  end_lr: 0.0003
   power: 0.9
 
 model:
@@ -20,7 +20,7 @@ model:
   in_channels: 1
   num_classes: 3
 
-comment: "Unet 128 baseline, ds no bias"
+comment: "Unet 128 baseline, batchnorm"
 vdl_hyper_param:
   dropout: 0.2
-  norm: "instance norm"
+  norm: "batch norm"
