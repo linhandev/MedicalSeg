@@ -150,6 +150,7 @@ class DecoderBlock(nn.Layer):
         super(DecoderBlock, self).__init__(name_scope=name_scope)
         self.dropout = nn.Dropout3D(p=0.6)
         self.lrelu = nn.LeakyReLU()
+        self.ag = AttentionGate(kernel_number)
 
         self.upsample = nn.Upsample(scale_factor=2, mode="trilinear", data_format="NCDHW")
         self.conv1 = nn.Conv3D(

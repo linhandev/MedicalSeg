@@ -100,7 +100,6 @@ def train(model,
         from medicalseg.utils.vdl import flatten_cfg
 
         log_writer = LogWriter(save_dir)
-        print(cfg.dic)
         log_writer.add_hparams(flatten_cfg(cfg), metrics_list=["Evaluate/Dice"])
     else:
         log_writer = None
