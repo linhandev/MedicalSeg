@@ -1,4 +1,4 @@
-_base_: 'lung_coronavirus_test.yml'
+_base_: 'lung_coronavirus_small.yml'
 
 model:
   type: UNet
