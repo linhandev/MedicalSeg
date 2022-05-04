@@ -5,7 +5,7 @@ model:
   in_channels: 1
   num_classes: 3
 
-comment: "Unet full, baseline, 0.001, prelu"
+comment: "Unet full, baseline, 0.1, prelu"
 vdl_hyper_param:
   dropout: 0.2
   norm: "instance norm"
