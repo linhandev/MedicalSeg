@@ -1,5 +1,6 @@
 _base_: '../_base_/global_configs.yml'
 
+# 16g
 batch_size: 32
 iters: 500
 

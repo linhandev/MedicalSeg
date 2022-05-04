@@ -1,11 +1,11 @@
-_base_: 'lung_coronavirus_small.yml'
+_base_: 'lung_coronavirus.yml'
 
 model:
   type: UNet
   in_channels: 1
   num_classes: 3
 
-comment: "Unet full, baseline, 0.1, prelu"
+comment: "Unet full, baseline, 128"
 vdl_hyper_param:
   dropout: 0.2
   norm: "instance norm"
