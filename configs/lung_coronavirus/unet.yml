@@ -20,12 +20,12 @@ model:
   in_channels: 1
   num_classes: 3
 
-comment: "Unet 128 baseline, LeakyReLU"
+comment: "Unet 128 baseline, ReLU"
 vdl_hyper_param:
   dropout: 0.2
   norm: "instance norm"
 
-# no skip
+# relu
 # leakyrelu
 # dropout 0.7
 # dropout 0

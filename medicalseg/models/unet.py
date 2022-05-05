@@ -44,7 +44,7 @@ class EncoderBlock(nn.Layer):
         if in_channels is None:
             in_channels = kernel_number // 2
 
-        self.lrelu = nn.LeakyReLU()
+        self.lrelu = nn.ReLU()
         self.dropout = nn.Dropout3D(p=dropout)
 
         if norm:
@@ -98,7 +98,7 @@ class EncoderBlock(nn.Layer):
 class DecoderBlock(nn.Layer):
     def __init__(self, name_scope, kernel_number, num_classes, kernel_size=3, stride=1):
         super(DecoderBlock, self).__init__(name_scope=name_scope)
-        self.lrelu = nn.LeakyReLU()
+        self.lrelu = nn.ReLU()
 
         self.upsample = nn.Upsample(scale_factor=2, mode="trilinear", data_format="NCDHW")
         self.conv1 = nn.Conv3D(
