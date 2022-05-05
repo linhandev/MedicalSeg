@@ -20,9 +20,9 @@ model:
   in_channels: 1
   num_classes: 3
 
-comment: "Unet 128 baseline, tanh"
+comment: "Unet 128 baseline, dropout 0.8"
 vdl_hyper_param:
-  dropout: 0.2
+  dropout: 0.8
   norm: "instance norm"
 
 # relu

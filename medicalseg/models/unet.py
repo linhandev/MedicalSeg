@@ -44,7 +44,7 @@ class EncoderBlock(nn.Layer):
         if in_channels is None:
             in_channels = kernel_number // 2
 
-        self.lrelu = nn.Tanh()
+        self.lrelu = nn.PReLU()
         self.dropout = nn.Dropout3D(p=dropout)
 
         if norm:
@@ -98,7 +98,7 @@ class EncoderBlock(nn.Layer):
 class DecoderBlock(nn.Layer):
     def __init__(self, name_scope, kernel_number, num_classes, kernel_size=3, stride=1):
         super(DecoderBlock, self).__init__(name_scope=name_scope)
-        self.lrelu = nn.Tanh()
+        self.lrelu = nn.PReLU()
 
         self.upsample = nn.Upsample(scale_factor=2, mode="trilinear", data_format="NCDHW")
         self.conv1 = nn.Conv3D(
@@ -169,7 +169,7 @@ class UNet(nn.Layer):
     Implementations based on the Unet3D paper: https://arxiv.org/abs/1606.06650
     """
 
-    def __init__(self, in_channels, num_classes, pretrained=None, base_n_kernel=8, dropout=0.2):
+    def __init__(self, in_channels, num_classes, pretrained=None, base_n_kernel=8, dropout=0.8):
         super(UNet, self).__init__()
         self.num_classes = num_classes
         self.best_loss = 1000000
