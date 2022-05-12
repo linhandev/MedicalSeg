@@ -108,13 +108,13 @@ def evaluate(model,
                 # if iter == 2:
                 print(im.shape)
                 res = logits.numpy()[0, 0, :, :, 0]
-                res = res[:, :, None]
+                res = res[:, :, None] * 120
                 if res.sum() > 100:
                     saved += 1
                     img = im.numpy()[0, 0, :, :, 0]
                     img = img[:, :, None]
-                    writer.add_image("Evaluate/image", img, 0, dataformats="HWC")
-                    writer.add_image("Evaluate/mask", res, 0, dataformats="HWC")
+                    writer.add_image("Evaluate/image", img, 0, dataformats="WHC")
+                    writer.add_image("Evaluate/mask", res, 0, dataformats="WHC")
                 
 
 
