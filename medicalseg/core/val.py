@@ -104,11 +104,17 @@ def evaluate(model,
                 ori_shape=label.shape[-3:],
                 transforms=eval_dataset.transforms.transforms)                
             if writer is not None:  # TODO visualdl single channel pseudo label map transfer to
-                if iter == 2:
-                    print(im.shape)
+                # if iter == 2:
+                print(im.shape)
+                res = logits.nympy()[0, 0, 0, :, :]
+                res = res[:, :, None]
+                if res.sum() > 100:
                     img = im.numpy()[0, 0, 0, :, :]
                     img = img[:, :, None]
-                    writer.add_image("Evaluate/mask",img , 0, dataformats="HWC")
+                    writer.add_image("Evaluate/image", img, 0, dataformats="HWC")
+                    writer.add_image("Evaluate/mask", res, 0, dataformats="HWC")
+                
+
 
             # Post process
             # if eval_dataset.post_transform is not None:
