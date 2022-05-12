@@ -111,7 +111,6 @@ def evaluate(model,
                 print("======")
                 if res.sum() > 100:
                     saved += 1
-                    res = res[:, :, None] * 120
                     mask = np.zeros((res.shape[0], res.shape[1], 3))
                     mask[res == 1, :] = [0, 255, 0]
                     mask[res == 2, :] = [255, 0, 0]
