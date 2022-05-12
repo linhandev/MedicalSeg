@@ -107,8 +107,8 @@ def evaluate(model,
                 if iter == 0:
                     print(im.shape)
                     img = im[0, 0, 0, :, :]
-                    img = img[None, :, :]
-                    writer.add_image("Evaluate/mask",img , 0, dataformats="CHW")
+                    img = img[:, :, None]
+                    writer.add_image("Evaluate/mask",img , 0, dataformats="HWC")
 
             # Post process
             # if eval_dataset.post_transform is not None:
