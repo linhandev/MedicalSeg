@@ -110,8 +110,12 @@ def evaluate(model,
                 res = pred.numpy()[0, 0, :, :, 64]
                 print("======")
                 if res.sum() > 100:
-                    res = res[:, :, None] * 120
                     saved += 1
+                    res = res[:, :, None] * 120
+                    mask = np.zeros(res.shape[0], res.shape[1], 3)
+                    mask[res == 1, :] = [0, 255, 0]
+                    mask[res == 2, :] = [255, 0, 0]
+                    
                     img = im.numpy()[0, 0, :, :, 64]
                     img = img[:, :, None]
                     print(res.shape, img.shape)
