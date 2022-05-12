@@ -107,12 +107,12 @@ def evaluate(model,
             if writer is not None and saved < 5:  # TODO visualdl single channel pseudo label map transfer to
                 # if iter == 2:
                 print(im.shape, logits.shape, pred.shape)
-                res = pred.numpy()[0, 0, :, :, :]
+                res = pred.numpy()[0, 0, :, :, 64]
                 print("======")
                 if res.sum() > 100:
                     res = res[:, :, None] * 120
                     saved += 1
-                    img = im.numpy()[0, 0, :, :, 0]
+                    img = im.numpy()[0, 0, :, :, 64]
                     img = img[:, :, None]
                     print(res.shape, img.shape)
                     writer.add_image("Evaluate/image", img, 0, dataformats="WHC")
