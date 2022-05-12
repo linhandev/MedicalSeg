@@ -108,7 +108,9 @@ def evaluate(model,
                 # if iter == 2:
                 print(im.shape, logits.shape)
                 res = logits.numpy()[0]
-                print(res)
+                print(pred)
+                print("======")
+                print(res.shape, res)
                 if res.sum() > 100:
                     res = np.argmax(res, axis=0)
                     res = res[:, :, None] * 120
