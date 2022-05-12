@@ -91,6 +91,7 @@ def evaluate(model,
     loss_all = 0.0
 
     with paddle.no_grad():
+        saved=0
         for iter, (im, label, idx) in enumerate(loader):
             reader_cost_averager.record(time.time() - batch_start)
             image_json = dataset_json_dict["training"][idx[0].split("/")[-1]
@@ -103,12 +104,13 @@ def evaluate(model,
                 im,
                 ori_shape=label.shape[-3:],
                 transforms=eval_dataset.transforms.transforms)                
-            if writer is not None:  # TODO visualdl single channel pseudo label map transfer to
+            if writer is not None and saved < 5:  # TODO visualdl single channel pseudo label map transfer to
                 # if iter == 2:
                 print(im.shape)
                 res = logits.numpy()[0, 0, 0, :, :]
                 res = res[:, :, None]
                 if res.sum() > 100:
+                    saved += 1
                     img = im.numpy()[0, 0, 0, :, :]
                     img = img[:, :, None]
                     writer.add_image("Evaluate/image", img, 0, dataformats="HWC")
