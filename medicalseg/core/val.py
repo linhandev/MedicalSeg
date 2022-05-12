@@ -106,7 +106,9 @@ def evaluate(model,
             if writer is not None:  # TODO visualdl single channel pseudo label map transfer to
                 if iter == 0:
                     print(im.shape)
-                    writer.add_image("Evaluate/mask", im[0, 0, 0, :, :], 0, dataformats="CHW")
+                    img = im[0, 0, 0, :, :]
+                    img = img[None, :, :]
+                    writer.add_image("Evaluate/mask",img , 0, dataformats="CHW")
 
             # Post process
             # if eval_dataset.post_transform is not None:
