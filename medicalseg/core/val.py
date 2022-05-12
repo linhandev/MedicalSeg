@@ -106,7 +106,7 @@ def evaluate(model,
             if writer is not None:  # TODO visualdl single channel pseudo label map transfer to
                 # if iter == 2:
                 print(im.shape)
-                res = logits.nympy()[0, 0, 0, :, :]
+                res = logits.numpy()[0, 0, 0, :, :]
                 res = res[:, :, None]
                 if res.sum() > 100:
                     img = im.numpy()[0, 0, 0, :, :]
