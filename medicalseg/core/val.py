@@ -112,8 +112,8 @@ def evaluate(model,
                 if res.sum() > 100:
                     saved += 1
                     mask = np.zeros((res.shape[0], res.shape[1], 3))
-                    mask[res == 1, :] = [0, 255, 0]
-                    mask[res == 2, :] = [255, 0, 0]
+                    mask[res == 1, :] = [255, 0, 0]
+                    mask[res == 2, :] = [0, 255, 0]
                     
                     img = im.numpy()[0, 0, :, :, 64]
                     img = img[:, :, None]
