@@ -234,6 +234,7 @@ class Prep:
                 # load data will transpose the image from "zyx" to "xyz"
                 spacing = dataset_json_dict["training"][
                             osp.basename(f).split(".")[0]]["spacing"] if i == 0 else None
+                print(f)
                 f_nps = Prep.load_medical_data(f)
 
                 for volume_idx, f_np in enumerate(f_nps):
