@@ -2,7 +2,6 @@
 export CUDA_VISIBLE_DEVICES=0
 
 # set the config file name and save directory here
-# config_name=unet_lung_coronavirus_128_128_128_15k
 config_name=unet_test
 
 yml=lung_coronavirus/${config_name}

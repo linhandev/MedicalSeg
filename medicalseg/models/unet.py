@@ -169,7 +169,7 @@ class UNet(nn.Layer):
     Implementations based on the Unet3D paper: https://arxiv.org/abs/1606.06650
     """
 
-    def __init__(self, in_channels, num_classes, pretrained=None, base_n_kernel=8, dropout=0.8):
+    def __init__(self, in_channels, num_classes, pretrained=None, base_n_kernel=8, dropout=0):
         super(UNet, self).__init__()
         self.num_classes = num_classes
         self.best_loss = 1000000
