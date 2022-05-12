@@ -24,7 +24,6 @@ support:
 import os
 import os.path as osp
 import sys
-import nrrd
 import time
 import glob
 import argparse
