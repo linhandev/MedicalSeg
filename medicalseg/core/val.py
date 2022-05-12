@@ -104,7 +104,7 @@ def evaluate(model,
                 ori_shape=label.shape[-3:],
                 transforms=eval_dataset.transforms.transforms)                
             if writer is not None:  # TODO visualdl single channel pseudo label map transfer to
-                if iter == 10:
+                if iter == 2:
                     print(im.shape)
                     img = im.numpy()[0, 0, 0, :, :]
                     img = img[:, :, None]
