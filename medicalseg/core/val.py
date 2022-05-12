@@ -102,10 +102,11 @@ def evaluate(model,
                 model,
                 im,
                 ori_shape=label.shape[-3:],
-                transforms=eval_dataset.transforms.transforms)
-
+                transforms=eval_dataset.transforms.transforms)                
             if writer is not None:  # TODO visualdl single channel pseudo label map transfer to
-                pass
+                if iter == 0:
+                    print(im.shape)
+                    writer.add_image("Evaluate/mask", )
 
             # Post process
             # if eval_dataset.post_transform is not None:
