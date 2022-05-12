@@ -117,9 +117,9 @@ def evaluate(model,
                     
                     img = im.numpy()[0, 0, :, :, 64]
                     img = img[:, :, None]
-                    print(res.shape, img.shape)
+                    print(res.shape, img.shape, mask.shape)
                     writer.add_image("Evaluate/image", img, 0, dataformats="WHC")
-                    writer.add_image("Evaluate/mask", res, 0, dataformats="WHC")
+                    writer.add_image("Evaluate/mask", mask, 0, dataformats="WHC")
                 
 
 
