@@ -106,7 +106,7 @@ def evaluate(model,
                 transforms=eval_dataset.transforms.transforms)                
             if writer is not None and saved < 5:  # TODO visualdl single channel pseudo label map transfer to
                 # if iter == 2:
-                print(im.shape)
+                print(im.shape, logits.shape)
                 res = logits.numpy()[0, 0, :, :, 0]
                 res = res[:, :, None] * 120
                 if res.sum() > 100:
