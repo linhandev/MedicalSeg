@@ -2,7 +2,7 @@ _base_: 'lung_coronavirus.yml'
 
 # 16g, 37 iter/epoch
 batch_size: 4
-iters: 3000
+iters: 2500
 
 # 32g, 
 # batch_size: 8
@@ -10,25 +10,42 @@ iters: 3000
 
 lr_scheduler:
   type: PolynomialDecay
-  decay_steps: 3000
+  decay_steps: 2500
   learning_rate: 0.01
-  end_lr: 0.0003
+  end_lr: 0.001
   power: 0.9
 
 model:
   type: UNet
   in_channels: 1
   num_classes: 3
+  dropout: 0.2
 
-comment: "Unet 128 baseline, dropout 0.8"
+
+comment: "Unet 128 baseline"
 vdl_hyper_param:
-  dropout: 0.8
   norm: "instance norm"
 
-# relu
-# leakyrelu
-# tanh
-# dropout 0.8
-# dropout 0.5
+
+# instance norm v
+# batch norm
 # dropout 0
+# dropout 0.2
+# dropout 0.4
+# dropout 0.6
+# dropout 0.8
+# no ds
+# no shortcut
+# act relu
+# act leaky relu
+# act prelu
+# act tanh
+# pooling maxpool
+# pooling conv
+# bs 4
+# bs 8
+# bs 16
+# lr 0.1
+# lr 0.01
+# lr 0.001
 
