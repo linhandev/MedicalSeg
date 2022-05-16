@@ -19,9 +19,9 @@ model:
   type: UNet
   in_channels: 1
   num_classes: 3
-  dropout: 0.2
+  dropout: 0
 
-comment: "Unet 128 baseline"
+comment: "Unet 128 baseline, dropout 0"
 vdl_hyper_param:
   norm: "instance norm"
 
