@@ -4,6 +4,7 @@ import os.path as osp
 def flatten_cfg(cfg):
     return {
         "model": cfg.dic["model"]["type"],
+        "dropout": cfg.dic["model"]["dropput"],
         "comment": cfg.dic.get("comment", ""),
         "batch_size": cfg.batch_size,
         "iters": cfg.iters,

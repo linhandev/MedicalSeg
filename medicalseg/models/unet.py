@@ -48,9 +48,9 @@ class EncoderBlock(nn.Layer):
         self.dropout = nn.Dropout3D(p=dropout)
 
         if norm:
-            self.norm1 = nn.InstanceNorm3D(kernel_number)
-            self.norm2 = nn.InstanceNorm3D(kernel_number)
-        self.norm3 = nn.InstanceNorm3D(kernel_number)
+            self.norm1 = nn.BatchNorm3D(kernel_number)
+            self.norm2 = nn.BatchNorm3D(kernel_number)
+        self.norm3 = nn.BatchNorm3D(kernel_number)
 
         self.conv1 = nn.Conv3D(
             in_channels=in_channels,
@@ -109,7 +109,7 @@ class DecoderBlock(nn.Layer):
             padding="SAME",
             bias_attr=False,
         )
-        self.norm1 = nn.InstanceNorm3D(kernel_number * 2)
+        self.norm1 = nn.BatchNorm3D(kernel_number * 2)
 
         self.conv2 = nn.Conv3D(
             in_channels=kernel_number * 2,
@@ -119,7 +119,7 @@ class DecoderBlock(nn.Layer):
             padding="SAME",
             bias_attr=False,
         )
-        self.norm2 = nn.InstanceNorm3D(kernel_number)
+        self.norm2 = nn.BatchNorm3D(kernel_number)
 
         self.conv3 = nn.Conv3D(
             in_channels=kernel_number,
@@ -139,7 +139,7 @@ class DecoderBlock(nn.Layer):
             # bias_attr=False,
         )
 
-        self.norm3 = nn.InstanceNorm3D(kernel_number)
+        self.norm3 = nn.BatchNorm3D(kernel_number)
 
     def forward(self, x, skip):
         out = self.upsample(x)
