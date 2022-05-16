@@ -61,7 +61,7 @@ import numpy as np
 sys.path.append(osp.join(osp.dirname(osp.realpath(__file__)), ".."))
 
 from prepare import Prep
-from preprocess_utils import HUNorm, resample, parse_msd_basic_info
+from preprocess_utils import HUnorm, resample, parse_msd_basic_info
 from medicalseg.utils import wrapped_partial
 
 tasks = {
@@ -126,7 +126,7 @@ class Prep_msd(Prep):
 
         self.preprocess = {
             "images": [
-                HUNorm, wrapped_partial(
+                HUnorm, wrapped_partial(
                     resample, new_shape=[128, 128, 128], order=1)
             ],
             "labels": [
